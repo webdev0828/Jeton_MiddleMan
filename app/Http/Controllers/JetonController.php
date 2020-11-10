@@ -68,11 +68,12 @@ class JetonController extends Controller
             foreach($hosts as $host) {
                 $response[] = $this->client->post($host->url . '/api/payment/jeton/webhook', [RequestOptions::JSON => $request->all()]);            
             }            
-            return response()->json(['success' => 'success'], 200);
         } catch (\Exception $e) {
             file_put_contents('error_log.txt', $e->getMessage() . '\n', FILE_APPEND);
             throw $e;
-        };        
+        };
+        
+        return response()->json(['success' => 'success'], 200);
     }
 
     public function withdrawWebhook(Request $request) {
@@ -89,10 +90,11 @@ class JetonController extends Controller
             foreach($hosts as $host) {
                 $response[] = $this->client->post($host->url . '/api/payment/jeton/webhook', [RequestOptions::JSON => $request->all()]);     
             }            
-            return response()->json(['success' => 'success'], 200);
         } catch (\Exception $e) {
             file_put_contents('error_log.txt', $e->getMessage() . '\n', FILE_APPEND);
             throw $e;
-        };        
+        };
+        
+        return response()->json(['success' => 'success'], 200);
     }
 }
