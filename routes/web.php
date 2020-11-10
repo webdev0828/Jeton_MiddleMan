@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('/', 'NetellerController@index')->name('index');
-Route::get('/home', 'NetellerController@home')->name('name');
-Route::post('/add', 'NetellerController@add')->name('add');
-Route::get('/delete/{id}', 'NetellerController@delete')->name('delete');
+Route::get('/', 'JetonController@index')->name('index');
+Route::get('/home', 'JetonController@home')->name('name');
+Route::post('/add', 'JetonController@add')->name('add');
+Route::get('/delete/{id}', 'JetonController@delete')->name('delete');
