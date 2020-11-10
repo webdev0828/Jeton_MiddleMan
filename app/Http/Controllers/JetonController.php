@@ -7,13 +7,13 @@ use GuzzleHttp\RequestOptions;
 use App\Host;
 use App\Transaction;
 
-class NetellerController extends Controller
+class JetonController extends Controller
 {
     
     public $client;
 
     public function __construct() {
-        $this->client = new Client();        
+        $this->client = new Client();      
     }
 
     public function index() {        
@@ -66,7 +66,28 @@ class NetellerController extends Controller
         $hosts = Host::all();
         try {
             foreach($hosts as $host) {
-                $response[] = $this->client->post($host->url . '/api/payment/paysafe/webhook', [RequestOptions::JSON => $request->all()]);            
+                $response[] = $this->client->post($host->url . '/api/payment/jeton/webhook', [RequestOptions::JSON => $request->all()]);            
+            }            
+            return response()->json(['success' => 'success'], 200);
+        } catch (\Exception $e) {
+            file_put_contents('error_log.txt', $e->getMessage() . '\n', FILE_APPEND);
+            throw $e;
+        };        
+    }
+
+    public function withdrawWebhook(Request $request) {
+        $data = $request->all();
+        
+        // save webhook response
+        $detail = [
+            'detail' => json_encode($data)
+        ];
+        Transaction::create($detail);
+
+        $hosts = Host::all();
+        try {
+            foreach($hosts as $host) {
+                $response[] = $this->client->post($host->url . '/api/payment/jeton/webhook', [RequestOptions::JSON => $request->all()]);     
             }            
             return response()->json(['success' => 'success'], 200);
         } catch (\Exception $e) {
