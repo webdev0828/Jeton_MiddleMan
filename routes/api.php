@@ -17,5 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/payment/payin/webhook', 'JetonController@depositWebhook');
-Route::post('/payment/payout/webhook', 'JetonController@withdrawWebhook');
+Route::post('/payment/payin/callback', 'JetonController@depositWebhook');
+Route::post('/payment/payout/callback', 'JetonController@withdrawWebhook');
